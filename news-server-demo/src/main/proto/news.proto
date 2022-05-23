@@ -1,0 +1,41 @@
+// @1 使用 proto3 语法
+syntax = "proto3";
+// @2 生成多个类
+option java_multiple_files = false;
+// @3 生成 java 类所在的包
+option java_package = "com.xiaofengstu.news.proto";
+// @4 生成外层类名
+option java_outer_classname = "NewsProto";
+// @5 .proto 包名
+package news;
+// @6 定义 rpc 服务 RouteGuide
+service NewsService{
+  // @7 list 是方法名，NewsRequest 入参，NewsRequest 出参
+  rpc list(NewsRequest) returns(NewsResponse){}
+  rpc hello(StringRequest) returns(StringResponse){}
+}
+message NewsRequest{
+  // 字段类型 属性名称 = 序列化索引
+  string data = 1;
+}
+
+message NewsResponse{
+  // repeated 说明是一个集合
+  repeated News news = 1;
+}
+// 新闻实体对象
+message News{
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  int64 createTime = 4;
+}
+
+message StringRequest{
+  string hi = 1;
+}
+
+message StringResponse{
+  string result = 1;
+}
+
